@@ -63,7 +63,7 @@ do
     done
 done
 echo "creating graphs for MPI implementations with 64 processes"
-python3 analysis.py symmetry.csv symmetry_speedup32.png symmetry_efficiency64.png
+python3 analysis.py symmetry.csv symmetry_speedup64.png symmetry_efficiency64.png
 python3 analysis.py transpose.csv transpose_speedup32.png transpose_efficiency64.png
 rm symmetry.csv
 rm transpose.csv
