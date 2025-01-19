@@ -1,0 +1,118 @@
+#!/bin/bash
+#PBS -M nivriti.raisingh@studenti.unitn.it
+#PBS -m e
+#PBS -N mpi
+#PBS -o mpi.o
+#PBS -e mpi.e
+#PBS -q short_cpuQ
+#PBS -l walltime=1:00:00
+#PBS -l select=1:ncpus=64:mpiprocs=64:ompthreads=64:mem=50mb
+
+cd $PBS_O_WORKDIR/src
+rm *.csv
+module load gcc91
+module load mpich-3.2.1--gcc-9.1.0
+module load python-3.10.14
+
+lscpu 
+
+g++-9.1.0 -c sequential.cc
+mpicxx -c explicit_mpi.cc
+mpicxx -o matrix deliverable_2.cc explicit_mpi.o sequential.o
+mpicxx -o block deliverable_2_block.cc explicit_mpi.o sequential.o
+g++-9.1.0 -fopenmp -o transpose omp_transpose.cc
+
+for n in {0..20}
+do
+    for i in {4..12}
+    do
+        if [ $i -gt 4 ]
+        then
+            mpirun -np 32 ./matrix $i
+        else
+            mpirun -np 16 ./matrix $i
+        fi
+    done
+done
+python3 analysis.py symmetry.csv symmetry_speedup32.png symmetry_efficiency32.png
+python3 analysis.py transpose.csv transpose_speedup32.png transpose_efficiency32.png
+rm symmetry.csv
+rm transpose.csv
+
+echo "calculating strong scaling"
+for q in {0..10}
+do
+    for p in 1 2 4 8 16 32 64
+    do
+    mpirun -np $p ./matrix 12 mpi_strong_scaling.csv
+    done
+done
+
+echo "calculating weak scaling"
+for n in {0..10}
+do
+    i=6
+    for p in 1 2 4 8 16 32 64
+    do
+        mpirun -np $p ./matrix $i mpi_weak_scaling.csv
+        i=$((i+1))
+    done
+done
+
+# OpenMP
+for i in {0..10}
+do
+    for t in 1 2 4 8 16 32 64
+    do
+        ./transpose 12 $t
+    done
+done
+mv ./scaling.csv ./omp_strong_scaling.csv
+
+for a in {0..10}
+do
+    n=6
+    for t in 1 2 4 8 16 32 64
+    do
+        ./transpose $n $t
+        n=$((n+1))
+    done
+done
+mv ./scaling.csv ./omp_weak_scaling.csv
+
+python3 scaling_comp.py
+rm omp_strong_scaling.csv omp_weak_scaling.csv mpi_strong_scaling.csv mpi_weak_scaling.csv
+
+for n in {0..10}
+do
+    for i in {4..12}
+    do
+        mpirun -np 4 ./block $i
+    done
+done
+mv block_transpose.csv block4.csv
+
+for n in {0..10}
+do
+    for i in {4..12}
+    do
+        mpirun -np 16 ./block $i
+    done
+done
+mv block_transpose.csv block16.csv
+
+for n in {0..10}
+do
+    for i in {4..12}
+    do
+        if [ $i -gt 5 ]
+        then
+            mpirun -np 64 ./block $i
+        else
+            mpirun -np 16 ./block $i
+        fi
+    done
+done
+mv block_transpose.csv block64.csv
+python3 block_analysis.py
+rm block4.csv block16.csv block64.csv
