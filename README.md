@@ -128,7 +128,7 @@ python3 block_analysis.py
 ```
 4. Comparasion of the scalibility of MPI and OpenMP implementations
 ```bash
-python3 analysis.py symmetry.csv <speedup_plot_name> <efficiency_plot_name>
+python3 block_analysis.py
 ```
 You should be able to find the plot files in the same folder where the code was run. To visuliza the 2D decomposition approach, the corressponding code needs to be run with 4, 16 and 64 processors
 
