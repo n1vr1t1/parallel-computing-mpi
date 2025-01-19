@@ -92,6 +92,7 @@ mpirun -np <num_processes> ./matrix <matrix_size>
 mpirun -np <num_processes> ./block <matrix_size>  
 ```
 Note: number of processor needs to be the square of a whole number 
+
 ---
 ### Scaling
 1. Strong scaling
