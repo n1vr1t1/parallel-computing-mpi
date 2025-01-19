@@ -3,7 +3,6 @@
 ## Overview  
 This repository contains solutions for Homework 2 of the "Introduction to Parallel Computing" course (2024/2025). The project focuses on implementing and analyzing parallel matrix transposition techniques using the Message Passing Interface (MPI). The goal is to explore explicit parallelization strategies, evaluate their performance, and compare them with sequential and OpenMP approaches. All the graphs found in the report are generated using the same python programs provided in this repository.
 
----
 
 ## Objectives
 1. Implement parallel matrix transposition using MPI.  
@@ -11,7 +10,6 @@ This repository contains solutions for Homework 2 of the "Introduction to Parall
 3. Compare parallelization techniques (MPI and OpenMP) for various matrix sizes and configurations.  
 4. Investigate and optimize block-based transposition methods.
 
----
 
 ## Features
 
@@ -21,7 +19,6 @@ This repository contains solutions for Homework 2 of the "Introduction to Parall
 - **Comparison**: Detailed comparison of sequential, MPI, and OpenMP implementations.  
 - **Automated Analysis**: Python scripts for generating speedup and efficiency plots. 
 
----
 
 ## Experimental Setup
 
@@ -60,7 +57,9 @@ dos2unix matrix_transpose.pbs
 ```bash
 qsub deliverable_2.pbs
 ```
+---
 ## OR
+---
 ### Run an interactive session
 ```bash
 qsub -I -q short_cpuQ -l select=1:ncpus=64:mpiprocs=64
@@ -93,7 +92,7 @@ mpirun -np <num_processes> ./matrix <matrix_size>
 mpirun -np <num_processes> ./block <matrix_size>  
 ```
 Note: number of processor needs to be the square of a whole number 
-
+---
 ### Scaling
 1. Strong scaling
 ```bash
@@ -110,7 +109,8 @@ do
   mpirun -np $p ./matrix $i mpi_weak_scaling.csv
   i=$((i+1))
 done
-``` 
+```
+---
 ### Visualize Performance Results
 To obtain the visual plots of each performance metrics run the following:
 1. Speedup and efficiency of checkSymMPI
