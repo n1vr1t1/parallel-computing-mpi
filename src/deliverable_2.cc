@@ -6,10 +6,6 @@
 #include<cassert>
 #include<fstream>
 #include<mpi.h>
-#ifdef _OPENMP
-#include<omp.h>
-#endif
-
 int main(int argc, char* argv[]){
     float* M, *T;
     bool sym, sym_mpi;
@@ -69,7 +65,6 @@ int main(int argc, char* argv[]){
         start = MPI_Wtime();
         matTranspose(M,T,n);
         end = MPI_Wtime();
-        check_transpose(M,T,n);
         transpose_time = end - start;
 
     }
@@ -137,7 +132,6 @@ int main(int argc, char* argv[]){
         start = MPI_Wtime();
         matTransposeMPI_HorizontalBlock(M, T, n, rank, size);
         end = MPI_Wtime();
-        check_transpose(M,T,n);
         transpose_time_mpi = end-start;
         if(eff){
             scaling_out<<transpose_time_mpi<<", ";
@@ -153,7 +147,6 @@ int main(int argc, char* argv[]){
         start = MPI_Wtime();
         matTransposeMPI_VerticalBlock(M, T, n, rank, size);
         end = MPI_Wtime();
-        check_transpose(M,T,n);
         transpose_time_mpi = end-start;
         if(eff){
             scaling_out<<transpose_time_mpi<<", ";
@@ -169,7 +162,6 @@ int main(int argc, char* argv[]){
         start = MPI_Wtime();
         matTransposeMPI_EqualBlocks(M, T, n, rank, size);
         end = MPI_Wtime();
-        check_transpose(M,T,n);
         transpose_time_mpi = end - start;
         if(eff){
             scaling_out<<transpose_time_mpi<<std::endl;

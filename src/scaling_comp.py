@@ -1,5 +1,6 @@
 import csv
 import matplotlib.pyplot as plt
+import numpy as np
 
 num_procs = [1, 2, 4, 8, 16, 32, 64]
 mpi1 = [0, 0, 0, 0, 0, 0, 0]
@@ -41,6 +42,7 @@ axs[0, 0].set_ylabel('Speedup')
 axs[0, 0].set_title('OpenMP Strong Scaling')
 axs[0, 0].legend()
 axs[0, 0].grid(True)
+axs[0, 0].set_xscale('log', base=2)
 
 #MPI strong scaling
 for i in range(7):
@@ -76,6 +78,7 @@ axs[0, 1].set_ylabel('Speedup')
 axs[0, 1].set_title('MPI Strong Scaling')
 axs[0, 1].legend()
 axs[0, 1].grid(True)
+axs[0, 1].set_xscale('log', base=2)
 
 #OpenMP weak scaling
 for i in range(7):
@@ -116,6 +119,7 @@ axs[1, 0].set_ylabel('Efficiency')
 axs[1, 0].set_title('OpenMP Weak Scaling')
 axs[1, 0].legend()
 axs[1, 0].grid(True)
+axs[1, 0].set_xscale('log', base=2)
 
 #MPI weak scaling
 for i in range(7):
@@ -150,6 +154,7 @@ axs[1, 1].set_ylabel('Efficiency')
 axs[1, 1].set_title('MPI Weak Scaling')
 axs[1, 1].legend()
 axs[1, 1].grid(True)
+axs[1, 1].set_xscale('log', base=2)
 
 plt.tight_layout()
 plt.savefig('scaling_plots.png')
