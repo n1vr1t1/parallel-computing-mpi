@@ -1,6 +1,4 @@
 #!/bin/bash
-#PBS -M nivriti.raisingh@studenti.unitn.it
-#PBS -m e
 #PBS -N mpi
 #PBS -o mpi.o
 #PBS -e mpi.e
