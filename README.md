@@ -26,11 +26,11 @@ This repository contains solutions for Homework 2 of the "Introduction to Parall
 **High-Performance Cluster** with Intel Xeon Gold 6252N CPU, running at 2.30GHz, 96 CPUs, Ethernet connectivity, running on a Linux CentOS 7.
 
 ### Tools & Libraries
-- **GCC Compiler:** gcc version **9.1.0** on a Linux CentOS 7 system (Unitn HPC cluster)
-- **OpenMP:** mpich version **3.2.1**
+- **GCC Compiler:** gcc version **9.1.0** on a Linux CentOS 7 system
+- **MPI:** mpich version **3.2.1** (mpich-3.2.1--gcc-9.1.0` on Unitn cluster)
 - **Standard C++ libraries:** `chrono`, `cstdlib`, `fstream`, `iostream`, `algorithm`, `omp.h`.
-- **Python:** v3.10.14 using libraries such as `csv`, `matplotlib`, `sys`, and `os`
-
+- **Python:** v3.10.14 using libraries such as `csv`, `matplotlib`, `sys`, `pynum` and `os`
+Note: On the Unitn HPC Cluster, `g++-9.1.0`, `mpicxx`, `mpirun` and `python3` are used to compile the code and run the executable 
 ### Matrix Sizes
 From `2^4` to `2^12`.
 
