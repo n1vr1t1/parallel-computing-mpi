@@ -75,7 +75,7 @@ module load python-3.10.14
 ```bash
 cd ./src
 ```
-### Compile the Code using GCC and MPICH
+### Compile the Code Using GCC and MPICH
 ```bash
 g++-9.1.0 -c sequential.cc
 mpicxx -c explicit_mpi.cc
@@ -89,19 +89,21 @@ For matrix sizes of 2^4 and 2^5, only a maximum of 16 and 32 processors can be u
 mpirun -np <num_processes> ./matrix <matrix_size>  
 ``` 
 2. Execute block-based transposition:
-   ```bash  
-   mpirun -np <num_processes> ./block <matrix_size>  
-   ```
-  Note: number of processor needs to be the square of a whole number 
+```bash  
+mpirun -np <num_processes> ./block <matrix_size>  
+```
+Note: number of processor needs to be the square of a whole number 
 
 ### Scaling
+1. Strong scaling
 ```bash
-#strong scaling
 for p in 1 2 4 8 16 32 64
 do
     mpirun -np $p ./matrix 12 mpi_strong_scaling.csv
 done
-#weak scaling
+```
+2. Weak scaling
+```bash
 i=6
 for p in 1 2 4 8 16 32 64
 do
@@ -110,22 +112,30 @@ do
 done
 ``` 
 ### Visualize Performance Results
-To obtain png files of results compile the following python code.
+To obtain the visual plots of each performance metrics run the following:
+1. Speedup and efficiency of checkSymMPI
 ```bash
 python3 analysis.py symmetry.csv <speedup_plot_name> <efficiency_plot_name>
+```
+2. Speedup and efficiency of matTransposeMPI
+```bash
 python3 analysis.py transpose.csv <speedup_plot_name> <efficiency_plot_name>
+```
+3. Speedup of 2D block-based decomposition
+```bash
 python3 block_analysis.py
 ```
-You should be able to find the plot files in the same folder where the code was run. To visuliza the 2D decomposition approach, the corressponding code needss to be run with 4, 16 and 64 processors
+4. Comparasion of the scalibility of MPI and OpenMP implementations
+```bash
+python3 analysis.py symmetry.csv <speedup_plot_name> <efficiency_plot_name>
+```
+You should be able to find the plot files in the same folder where the code was run. To visuliza the 2D decomposition approach, the corressponding code needs to be run with 4, 16 and 64 processors
 
 ---
 
 ## Performance Analysis  
-The provided bash script automates the evaluation of strong and weak scaling for MPI and OpenMP, alongside block-based transposition:  
-```bash  
-bash deliverable_2.pbs  
-```  
+The provided bash script `deliverable_2.pbs` automates the evaluation of strong and weak scaling for MPI and OpenMP, alongside block-based transposition:  
 The script generates:  
 - Strong and weak scaling metrics for MPI and OpenMP.  
 - Speedup and efficiency plots for symmetry checks and matrix transposition.  
-- Analysis of block-based transposition performance.
+- Speedup of block-based transposition performance with 4, 16 and 32 processors
