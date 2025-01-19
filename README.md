@@ -136,6 +136,6 @@ You should be able to find the plot files in the same folder where the code was 
 ## Performance Analysis  
 The provided bash script `deliverable_2.pbs` automates the evaluation of strong and weak scaling for MPI and OpenMP, alongside block-based transposition:  
 The script generates:  
-- Strong and weak scaling metrics for MPI and OpenMP.  
+- `scaling_plots.png` which shows strong and weak scaling metrics for MPI and OpenMP.  
 - Speedup and efficiency plots for symmetry checks and matrix transposition.  
-- Speedup of block-based transposition performance with 4, 16 and 32 processors
+-`block_speedups.png` to show speedup of block-based transposition performance with 4, 16 and 32 processors
